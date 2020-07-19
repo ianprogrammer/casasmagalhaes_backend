@@ -3,8 +3,11 @@ import { ProdutoModel } from '.';
 export type LojaModel = {
   id: string
   nome: string
+  cnpj: string
   nomeFantasia: string
-  produtos: ProdutoModel[]
+  createdAt:Date
+  updatedAt: Date
+  produtos?:ProdutoModel[]
 }
 
 

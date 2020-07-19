@@ -1,14 +1,16 @@
 import { HttpResponse } from '../interfaces'
 import { ServerError, UnauthorizedError } from '../erros'
 
-export const badRequest = (error: Error): HttpResponse => ({
-  statusCode: 400,
-  body: error
-})
+export const badRequest = (errorMessage: string): HttpResponse => {
+  return ({
+    statusCode: 400,
+    body: { message: errorMessage }
+  })
+}
 
-export const forbidden = (error: Error): HttpResponse => ({
+export const forbidden = (errorMessage: string): HttpResponse => ({
   statusCode: 403,
-  body: error
+  body: errorMessage
 })
 
 export const unauthorized = (): HttpResponse => ({
@@ -16,7 +18,7 @@ export const unauthorized = (): HttpResponse => ({
   body: new UnauthorizedError()
 })
 
-export const serverError = (error: Error): HttpResponse => ({
+export const serverError = (error: Error = new Error("Erro interno do servidor, tente novamente mais tarde.")): HttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack)
 })

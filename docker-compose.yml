@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  database:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: casamagalhaes
+      POSTGRES_PASSWORD: 6Tw@Rq*xWY!7p
+      POSTGRES_DB: loja_db  
+    volumes:
+      - postgres_db:/var/lib/postgresql/data/
+  api:
+    container_name: api-casamagalhaes
+    build: .
+    image: casasmagalhaes
+    restart: always
+    ports:
+      - '8000:8000'
+    working_dir: /usr/src/casasmagalhaes/
+    environment:
+      - DB_type=postgres
+      - DB_host=database
+      - DB_port=5432
+      - DB_username=casamagalhaes
+      - DB_password=6Tw@Rq*xWY!7p
+      - DB_database=loja_db
+    command: npm start
+    volumes:
+      - ./dist:/usr/src/casasmagalhaes/dist/
+      - ./package.json:/usr/src/api-casamagalhaes/package.json
+    links:
+      - database
+volumes:
+  postgres_db:
