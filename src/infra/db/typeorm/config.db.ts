@@ -30,7 +30,8 @@ const connection = async (connectionName = "default"): Promise<Connection> => {
         username: DB_CONFIG.username,
         password: DB_CONFIG.password,
         database: DB_CONFIG.database,
-        entities: [Produto, Loja]
+        entities: [Produto, Loja],
+        synchronize:true
     })
 
     return connection
